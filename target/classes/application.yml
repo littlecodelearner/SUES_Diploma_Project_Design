@@ -1,0 +1,147 @@
+server:
+  port: 21167
+  servlet:
+    context-path: /
+  #  compression:
+  #    enabled: true
+  #    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+  #    min-response-size: 1024
+  http2:
+    enabled: true
+
+spring:
+  application:
+    name: Diploma_DailyExerciseHealthManagementSystem
+  
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  
+  # Application configuration for connecting to the MySQL database
+  datasource:
+    # 中国时区
+    url: jdbc:mysql://localhost:3306/diploma_project_daily_exercise_health_management_system?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=True
+    
+    # 毕设的外网IP：124.223.208.42
+#    url: jdbc:mysql://124.223.208.42:3306/diploma_project_daily_exercise_health_management_system?useSSL=false&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=True
+    
+    # 国际时区
+#    url: jdbc:mysql://localhost:3306/diploma_project_daily_exercise_health_management_system?useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=True
+    
+    username: root # Replace with your actual database username
+    password: root # Replace with your actual database password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    
+    # Database connection pool configuration (HikariCP by default in Spring Boot)
+    hikari:
+      maximum-pool-size: 10  # Maximum number of connections in the pool
+  
+  cache:
+    # 如果你的应用使用缓存，此选项可以帮助你在每次重启时清除缓存
+    type: none
+  
+  devtools:
+    # LiveReload功能: 这个功能使更改后页面自动刷新。确保你的浏览器装有LiveReload插件来使用此功能。
+    livereload:
+      # 启用/禁用LiveReload服务器（默认就是启用状态）
+      enabled: true
+      # LiveReload服务器的端口号
+#      port:
+
+#  security:
+##   程序启动后，在网页中进入URL时，需要输入的用户名和密码
+#    user:
+#      name:
+#      password:
+
+mybatis-plus:
+  # 指定 MyBatis 别名包扫描路径，用于给包中的类注册别名。
+  # 注册后，在 Mapper 对应的 XML 文件中可以直接使用类名，无需使用全限定类名。
+  type-aliases-package: sues.xmz.diploma.dataobject.entity
+  # MyBatis 配置
+  configuration:
+    # 将下划线自动映射为驼峰命名
+    map-underscore-to-camel-case: true
+    # 记录MyBatis执行的 SQL日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    # 全局配置
+    db-config:
+      # 数据库配置
+      id-type: auto
+
+# Logging
+logging:
+  level:
+    root: INFO
+    sues:
+      xmz:
+        diploma: DEBUG
+    org:
+      apache:
+        ibatis: DEBUG
+      springframework:
+        # 查看日志的设置级别：org.springframework.boot.logging.LogLevel
+        jdbc: DEBUG # Enables detailed logging for troubleshooting database issues
+        web: DEBUG
+        security: DEBUG
+#  file:
+#    name: app.log
+
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    #operations-sorter: order
+
+  api-docs:
+    path: /v3/api-docs
+
+  group-configs:
+    - group: 'default'
+      display-name: '开发'
+      paths-to-match: '/**'
+      packages-to-scan: sues.xmz.diploma
+    - group: 'formal'
+      display-name: '正式'
+      paths-to-match: '/stocks'
+      packages-to-scan: sues.xmz.diploma
+
+  #  default-flat-param-object: true
+  default-flat-param-object: false
+
+# knife4j对于Swagger的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+    swagger-model-name: 实体类列表
+#  documents:
+#    - name: 标题1
+#      locations: classpath:markdown/*
+#      group: 测试
+#    - name: 标题2
+#      locations: classpath:markdown1/*
+#      group: 用户模块
+#  basic:
+#    enable: false
+#    username: abc
+#    password: 123
+#  insight:
+#    enable: true
+#    service-name: boot3
+#    secret: S6CsnS8AnPVyb8vvChcdXm4R3p6A6KlAISxBg3IIEgk=
+#    server: http://localhost:21167
+#    namespace: spring3
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: openai, swagger-ui
+
+
+

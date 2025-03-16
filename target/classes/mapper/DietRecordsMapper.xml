@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sues.xmz.diploma.mapper.DietRecordsMapper">
+    
+    <!-- resultMap 用于 DietRecordsDTO -->
+    <resultMap id="DietRecordDTOResultMap"
+               type="sues.xmz.diploma.domain.dto.diet_records.DietRecordsDTO"
+    >
+        <result property="dietId" javaType="java.lang.Integer" column="diet_id" />
+        <result property="mealType" javaType="java.lang.String" column="meal_type" />
+        <result property="mealTime" javaType="java.util.Date" column="meal_time" />
+        <result property="mealNote" javaType="java.lang.String" column="meal_note" />
+        <result property="mealPlace" javaType="java.lang.String" column="meal_place" />
+        <collection property="foodsDetailsDTOList"
+                    ofType="sues.xmz.diploma.domain.dto.diet_records.FoodsDetailsDTO"
+        >
+            <result property="foodId" javaType="java.lang.Integer" column="food_id" />
+            <result property="quantity" javaType="java.math.BigDecimal" column="quantity"/>
+            <result property="foodName" javaType="java.lang.String" column="food_name" />
+            <result property="calories" javaType="java.math.BigDecimal" column="calories"/>
+            <result property="protein" javaType="java.math.BigDecimal" column="protein"/>
+            <result property="fat" javaType="java.math.BigDecimal" column="fat"/>
+            <result property="carbohydrates" javaType="java.math.BigDecimal" column="carbohydrates"/>
+            <result property="water" javaType="java.math.BigDecimal" column="water"/>
+            <result property="foodType" javaType="java.lang.String" column="food_type"/>
+        </collection>
+    </resultMap>
+    
+    <!-- 按时间段来分页批量查询用户的饮食记录 -->
+    <select id="listPaginatedDietRecordsByTimeRange"
+            resultMap="DietRecordDTOResultMap"
+    >
+        select
+        drf.diet_id,
+        drf.food_id,
+        drf.quantity,
+        df.food_name,
+        df.calories,
+        df.protein,
+        df.fat,
+        df.carbohydrates,
+        df.water,
+        df.food_type,
+        dr.meal_type,
+        dr.meal_time,
+        dr.meal_note,
+        dr.meal_place
+        from diploma_project_daily_exercise_health_management_system.diet_records dr
+        left outer join diploma_project_daily_exercise_health_management_system.diet_records_foods drf
+        on drf.diet_id = dr.diet_id
+        left outer join diploma_project_daily_exercise_health_management_system.diet_foods df
+        on drf.food_id = df.food_id
+        where dr.user_id = #{query.userId}
+        <choose>
+            <when test="query.startDateTime != null and query.endDateTime == null">
+                and dr.meal_time &gt;= #{query.startDateTime}
+            </when>
+            <when test="query.startDateTime == null and query.endDateTime != null">
+                and dr.meal_time &lt;= #{query.endDateTime}
+            </when>
+            <when test="query.startDateTime != null and query.endDateTime != null">
+                and dr.meal_time between #{query.startDateTime} and #{query.endDateTime}
+            </when>
+            <when test="query.mealType != null">
+                and dr.meal_type = #{query.mealType}
+            </when>
+        </choose>
+        order by dr.meal_time desc
+        limit #{offset}, #{query.size}
+    </select>
+    
+    <!-- 按时间段来获取查询用户的所有饮食记录 -->
+    <select id="listAllDietRecordsByTimeRange"
+            resultMap="DietRecordDTOResultMap"
+    >
+        select
+        drf.diet_id,
+        drf.food_id,
+        drf.quantity,
+        df.food_name,
+        df.calories,
+        df.protein,
+        df.fat,
+        df.carbohydrates,
+        df.water,
+        df.food_type,
+        dr.meal_type,
+        dr.meal_time,
+        dr.meal_note,
+        dr.meal_place
+        from diploma_project_daily_exercise_health_management_system.diet_records dr
+        left outer join diploma_project_daily_exercise_health_management_system.diet_records_foods drf
+        on drf.diet_id = dr.diet_id
+        left outer join diploma_project_daily_exercise_health_management_system.diet_foods df
+        on drf.food_id = df.food_id
+        where dr.user_id = #{query.userId}
+        <choose>
+            <when test="query.startDateTime != null and query.endDateTime == null">
+                and dr.meal_time &gt;= #{query.startDateTime}
+            </when>
+            <when test="query.startDateTime == null and query.endDateTime != null">
+                and dr.meal_time &lt;= #{query.endDateTime}
+            </when>
+            <when test="query.startDateTime != null and query.endDateTime != null">
+                and dr.meal_time between #{query.startDateTime} and #{query.endDateTime}
+            </when>
+            <when test="query.mealType != null">
+                and dr.meal_type = #{query.mealType}
+            </when>
+        </choose>
+        order by dr.meal_time desc
+    </select>
+    
+    <!-- resultMap 用于 DietRecordsCalculationDTO -->
+    <resultMap id="DietRecordsCalculationDTOResultMap"
+               type="sues.xmz.diploma.domain.dto.diet_records.DietRecordsCalculationDTO"
+    >
+        <result property="dietId" javaType="java.lang.Integer" column="diet_id" />
+        <result property="mealTime" javaType="java.util.Date" column="meal_time" />
+        <result property="foodId" javaType="java.lang.Integer" column="food_id" />
+        <result property="quantity" javaType="java.math.BigDecimal" column="quantity"/>
+        <result property="foodName" javaType="java.lang.String" column="food_name" />
+        <result property="calories" javaType="java.math.BigDecimal" column="calories"/>
+        <result property="protein" javaType="java.math.BigDecimal" column="protein"/>
+        <result property="fat" javaType="java.math.BigDecimal" column="fat"/>
+        <result property="carbohydrates" javaType="java.math.BigDecimal" column="carbohydrates"/>
+        <result property="water" javaType="java.math.BigDecimal" column="water"/>
+        <result property="foodType" javaType="java.lang.String" column="food_type"/>
+    </resultMap>
+    
+    <!-- 用于分析计算营养摄入 - 按时间段来获取查询用户的所有饮食记录 -->
+    <select id="listDietRecordsDetailsByTimeRange"
+            resultMap="DietRecordsCalculationDTOResultMap"
+    >
+        select
+        drf.diet_id,
+        drf.food_id,
+        drf.quantity,
+        dr.meal_time,
+        df.food_name,
+        df.calories,
+        df.protein,
+        df.fat,
+        df.carbohydrates,
+        df.water,
+        df.food_type
+        from diploma_project_daily_exercise_health_management_system.diet_records dr
+        left outer join diploma_project_daily_exercise_health_management_system.diet_records_foods drf
+        on drf.diet_id = dr.diet_id
+        left outer join diploma_project_daily_exercise_health_management_system.diet_foods df
+        on drf.food_id = df.food_id
+        where dr.user_id = #{query.userId}
+        <choose>
+            <when test="query.startDateTime != null and query.endDateTime == null">
+                and dr.meal_time &gt;= #{query.startDateTime}
+            </when>
+            <when test="query.startDateTime == null and query.endDateTime != null">
+                and dr.meal_time &lt;= #{query.endDateTime}
+            </when>
+            <when test="query.startDateTime != null and query.endDateTime != null">
+                and dr.meal_time between #{query.startDateTime} and #{query.endDateTime}
+            </when>
+        </choose>
+        order by dr.meal_time desc
+    </select>
+
+
+</mapper>

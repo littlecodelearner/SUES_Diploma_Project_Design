@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sues.xmz.diploma.mapper.DietRecordsFoodsMapper">
+    
+    
+    <insert id="saveDietRecordsFoodsInBatch"
+            parameterType="java.util.List"
+    >
+        INSERT INTO diploma_project_daily_exercise_health_management_system.diet_records_foods
+        (diet_id, food_id, quantity)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.dietId},
+            #{item.foodId},
+            #{item.quantity}
+            )
+        </foreach>
+    </insert>
+</mapper>

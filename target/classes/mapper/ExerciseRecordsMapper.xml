@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sues.xmz.diploma.mapper.ExerciseRecordsMapper">
+    
+    <!-- 定义 resultMap，包含 ExerciseRecordsDTO 的所有字段及 exerciseTypesList 集合 -->
+    <resultMap id="ExerciseRecordsTypesDTOResultMap"
+               type="sues.xmz.diploma.domain.dto.exercise_records_types.ExerciseRecordsDTO"
+    >
+        <id property="exerciseRecordId" column="exercise_record_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="duration" column="duration"/>
+        <result property="distance" column="distance"/>
+        <result property="caloriesBurned" column="calories_burned"/>
+        <result property="heartRate" column="heart_rate"/>
+        <result property="exerciseNote" column="exercise_note"/>
+        <result property="exerciseDate" column="exercise_date"/>
+        <!-- 映射 exerciseTypesList 集合 -->
+        <collection property="exerciseTypesList"
+                    ofType="sues.xmz.diploma.domain.po.ExerciseTypes"
+        >
+            <result property="exerciseTypeId" javaType="java.lang.Integer" column="exercise_type_id"/>
+            <result property="exerciseName" javaType="java.lang.String" column="exercise_name"/>
+        </collection>
+    </resultMap>
+    
+    <!-- 通过联表查询，来根据时间段来分页批量获取运动记录 -->
+    <select id="listPaginatedExerciseRecordsDetailsByTimeRange"
+            resultMap="ExerciseRecordsTypesDTOResultMap"
+    >
+        SELECT
+        er.exercise_record_id AS exercise_record_id,
+        er.user_id AS user_id,
+        et.exercise_type_id AS exercise_type_id,
+        et.exercise_name AS exercise_name,
+        er.duration AS duration,
+        er.distance AS distance,
+        er.calories_burned AS calories_burned,
+        er.heart_rate AS heart_rate,
+        er.exercise_note AS exercise_note,
+        er.exercise_date AS exercise_date
+        FROM diploma_project_daily_exercise_health_management_system.exercise_records er
+        LEFT OUTER JOIN
+        diploma_project_daily_exercise_health_management_system.exercise_records_types ert
+        ON ert.exercise_record_id = er.exercise_record_id
+        LEFT OUTER JOIN
+        diploma_project_daily_exercise_health_management_system.exercise_types et
+        ON ert.exercise_type_id = et.exercise_type_id
+        WHERE er.user_id = #{query.userId}
+        <choose>
+            <when test="query.startDateTime != null and query.endDateTime == null">
+                and er.exercise_date &gt;= #{query.startDateTime}
+            </when>
+            <when test="query.startDateTime == null and query.endDateTime != null">
+                and er.exercise_date &lt;= #{query.endDateTime}
+            </when>
+            <when test="query.startDateTime != null and query.endDateTime != null">
+                and er.exercise_date between #{query.startDateTime} and #{query.endDateTime}
+            </when>
+        </choose>
+        ORDER BY er.exercise_date DESC
+        LIMIT #{offset}, #{query.size}
+    </select>
+    
+    <select id="listAllExerciseRecordsByTimeRange"
+            resultMap="ExerciseRecordsTypesDTOResultMap"
+    >
+        SELECT
+        er.exercise_record_id AS exercise_record_id,
+        er.user_id AS user_id,
+        et.exercise_type_id AS exercise_type_id,
+        et.exercise_name AS exercise_name,
+        er.duration AS duration,
+        er.distance AS distance,
+        er.calories_burned AS calories_burned,
+        er.heart_rate AS heart_rate,
+        er.exercise_note AS exercise_note,
+        er.exercise_date AS exercise_date
+        FROM diploma_project_daily_exercise_health_management_system.exercise_records er
+        LEFT OUTER JOIN
+        diploma_project_daily_exercise_health_management_system.exercise_records_types ert
+        ON ert.exercise_record_id = er.exercise_record_id
+        LEFT OUTER JOIN
+        diploma_project_daily_exercise_health_management_system.exercise_types et
+        ON ert.exercise_type_id = et.exercise_type_id
+        WHERE er.user_id = #{query.userId}
+        <choose>
+            <when test="query.startDateTime != null and query.endDateTime == null">
+                and er.exercise_date &gt;= #{query.startDateTime}
+            </when>
+            <when test="query.startDateTime == null and query.endDateTime != null">
+                and er.exercise_date &lt;= #{query.endDateTime}
+            </when>
+            <when test="query.startDateTime != null and query.endDateTime != null">
+                and er.exercise_date between #{query.startDateTime} and #{query.endDateTime}
+            </when>
+        </choose>
+        ORDER BY er.exercise_date DESC
+    </select>
+</mapper>

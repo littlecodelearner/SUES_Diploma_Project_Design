@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sues.xmz.diploma.mapper.HealthGoalsMapper">
+    
+    <resultMap id="HealthGoalsDetailsDTOResultMap"
+               type="sues.xmz.diploma.domain.dto.health_goals.HealthGoalsDetailsDTO">
+        <id property="goalId" column="goal_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="targetPlan" column="target_plan"/>
+        <result property="targetDate" column="target_date"/>
+        <result property="isFinished" column="is_finished"/>
+        <result property="isAbandoned" column="is_abandoned"/>
+        <!-- 映射 exerciseTypesList 集合 -->
+        <collection property="exerciseTypesList"
+                    ofType="sues.xmz.diploma.domain.po.ExerciseTypes"
+        >
+            <result property="exerciseTypeId" column="exercise_type_id"/>
+            <result property="exerciseName" column="exercise_name"/>
+        </collection>
+    </resultMap>
+    
+    <select id="listPaginatedHealthGoalsDetailsByTimeRange"
+            resultMap="HealthGoalsDetailsDTOResultMap">
+        select
+        hg.goal_id as goal_id,
+        hg.user_id as user_id,
+        hg.target_plan as target_plan,
+        hg.target_date as target_date,
+        hg.is_finished as is_finished,
+        hg.is_abandoned as is_abandoned,
+        et.exercise_type_id as exercise_type_id,
+        et.exercise_name as exercise_name
+        from diploma_project_daily_exercise_health_management_system.health_goals as hg
+        left outer join diploma_project_daily_exercise_health_management_system.health_goals_exercise_types as hget
+        on hget.goal_id = hg.goal_id
+        left outer join diploma_project_daily_exercise_health_management_system.exercise_types as et
+        on hget.exercise_type_id = et.exercise_type_id
+        where hg.user_id = #{query.userId}
+        <choose>
+            <when test="query.startDateTime != null and query.endDateTime == null">
+                and hg.target_date &gt;= #{query.startDateTime}
+            </when>
+            <when test="query.startDateTime == null and query.endDateTime != null">
+                and hg.target_date &lt;= #{query.endDateTime}
+            </when>
+            <when test="query.startDateTime != null and query.endDateTime != null">
+                and hg.target_date between #{query.startDateTime} and #{query.endDateTime}
+            </when>
+        </choose>
+        order by hg.target_date desc
+        limit #{offset}, #{query.size}
+    </select>
+    
+    <select id="listAllHealthGoalsDetailsByTimeRange"
+            resultMap="HealthGoalsDetailsDTOResultMap">
+        select
+        hg.goal_id as goal_id,
+        hg.user_id as user_id,
+        hg.target_plan as target_plan,
+        hg.target_date as target_date,
+        hg.is_finished as is_finished,
+        hg.is_abandoned as is_abandoned,
+        et.exercise_type_id as exercise_type_id,
+        et.exercise_name as exercise_name
+        from diploma_project_daily_exercise_health_management_system.health_goals as hg
+        left outer join diploma_project_daily_exercise_health_management_system.health_goals_exercise_types as hget
+        on hget.goal_id = hg.goal_id
+        left outer join diploma_project_daily_exercise_health_management_system.exercise_types as et
+        on hget.exercise_type_id = et.exercise_type_id
+        where hg.user_id = #{query.userId}
+        <choose>
+            <when test="query.startDateTime != null and query.endDateTime == null">
+                and hg.target_date &gt;= #{query.startDateTime}
+            </when>
+            <when test="query.startDateTime == null and query.endDateTime != null">
+                and hg.target_date &lt;= #{query.endDateTime}
+            </when>
+            <when test="query.startDateTime != null and query.endDateTime != null">
+                and hg.target_date between #{query.startDateTime} and #{query.endDateTime}
+            </when>
+        </choose>
+        order by hg.target_date desc
+    </select>
+
+</mapper>
