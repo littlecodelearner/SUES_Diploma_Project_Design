@@ -1,0 +1,687 @@
+/* 基础变量定义 */
+:root {
+  /* 中国风配色（40%权重） */
+  --chinese-primary: #D4213B;
+  --chinese-secondary: #FFC300;
+  --chinese-accent: #1A936F;
+  --chinese-light: #FFE4E1;
+  --chinese-dark: #8B0000;
+  --chinese-bg: rgba(212, 33, 59, 0.15);
+  
+  /* 二次元配色（40%权重） */
+  --anime-primary: #FF69B4;
+  --anime-secondary: #87CEEB;
+  --anime-accent: #FFD700;
+  --anime-pastel: #FFB7C5;
+  --anime-soft: #E6E6FA;
+  --anime-bg: rgba(255, 105, 180, 0.15);
+  --anime-glow: rgba(255, 105, 180, 0.3);
+  
+  /* 街头风配色（20%权重） */
+  --street-primary: #FF4500;
+  --street-secondary: #4B0082;
+  --street-accent: #00FF00;
+  --street-neon: #FF1493;
+  --street-dark: #1A1A1A;
+  --street-bg: rgba(255, 69, 0, 0.08);
+  
+  /* 卡片专用渐变 - 中国风水墨风格 */
+  --card-gradient: linear-gradient(
+    120deg,
+    rgba(212, 33, 59, 0.05) 0%,
+    rgba(255, 195, 0, 0.05) 50%,
+    rgba(26, 147, 111, 0.05) 100%
+  );
+
+  /* 按钮专用渐变 - 二次元可爱风格 */
+  --button-gradient: linear-gradient(
+    45deg,
+    var(--anime-primary) 0%,
+    var(--anime-pastel) 50%,
+    var(--anime-secondary) 100%
+  );
+
+  /* 表头专用渐变 - 中国风与二次元混合 */
+  --table-header-gradient: linear-gradient(
+    135deg,
+    var(--chinese-dark) 0%,
+    var(--chinese-primary) 40%,
+    var(--anime-primary) 100%
+  );
+
+  /* 边框专用渐变 - 街头文化点缀 */
+  --border-gradient: linear-gradient(
+    90deg,
+    var(--chinese-primary) 0%,
+    var(--street-neon) 50%,
+    var(--chinese-secondary) 100%
+  );
+
+  /* 标题专用渐变 - 传统与现代融合 */
+  --title-gradient: linear-gradient(
+    45deg,
+    var(--chinese-dark) 0%,
+    var(--chinese-primary) 30%,
+    var(--anime-primary) 70%,
+    var(--anime-soft) 100%
+  );
+
+  /* 滚动条专用渐变 - 街头文化特色 */
+  --scrollbar-gradient: linear-gradient(
+    to bottom,
+    var(--street-dark) 0%,
+    var(--street-primary) 50%,
+    var(--street-neon) 100%
+  );
+}
+
+/* 装饰层基础设置 */
+.decoration-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* 中国风元素 */
+.chinese-style-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 100vh;
+  pointer-events: none;
+  background-image: 
+    url('/images/chinese-pattern.png'),
+    linear-gradient(45deg, var(--chinese-bg), var(--anime-bg));
+  background-attachment: scroll;
+  background-size: contain;
+  background-repeat: repeat;
+  opacity: 0.30;
+  z-index: 1;
+}
+
+/* 融合风格卡片 */
+.el-card {
+  border: 2px solid transparent !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s ease;
+  background-image: 
+    url('/images/chinese-pattern.png'),
+    var(--card-gradient) !important;
+  background-attachment: scroll;
+  background-size: auto;
+  background-blend-mode: overlay;
+  border-image: var(--border-gradient) 1 !important;
+  box-shadow: 
+    0 8px 16px rgba(0, 0, 0, 0.1),
+    0 0 20px var(--anime-glow);
+}
+
+.el-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 15px 30px rgba(0, 0, 0, 0.2),
+    0 0 30px var(--anime-glow),
+    0 0 20px var(--chinese-bg) !important;
+}
+
+/* 按钮融合风格 */
+/* 按钮基础样式 */
+.el-button {
+  border: none !important;
+  font-size: 1.1rem !important;
+  font-family: "华文行楷", "微软雅黑", sans-serif;
+  letter-spacing: 2px;
+  padding: 12px 24px !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 健康数据相关按钮 - 中国风主导 */
+.health-data-section .el-button {
+  background-color: var(--chinese-primary) !important;
+  color: white !important;
+  box-shadow: 0 4px 15px rgba(212, 33, 59, 0.3);
+}
+
+.health-data-section .el-button:hover {
+  background-color: var(--chinese-dark) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 33, 59, 0.4);
+}
+
+/* 运动记录相关按钮 - 二次元风格 */
+.exercise-section .el-button {
+  background-color: var(--anime-primary) !important;
+  color: white !important;
+  box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+}
+
+.exercise-section .el-button:hover {
+  background-color: var(--anime-secondary) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+}
+
+/* 饮食记录相关按钮 - 街头文化点缀 */
+.diet-section .el-button {
+  background-color: var(--street-primary) !important;
+  color: white !important;
+  box-shadow: 0 4px 15px rgba(255, 69, 0, 0.3);
+}
+
+.diet-section .el-button:hover {
+  background-color: var(--street-neon) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 69, 0, 0.4);
+}
+
+/* 主要操作按钮 - 渐变效果 */
+.el-button--primary {
+  background: linear-gradient(
+    45deg,
+    var(--chinese-primary) 0%,
+    var(--anime-primary) 100%
+  ) !important;
+  box-shadow: 0 4px 15px rgba(212, 33, 59, 0.3);
+}
+
+.el-button--primary:hover {
+  background: linear-gradient(
+    45deg,
+    var(--anime-primary) 0%,
+    var(--chinese-primary) 100%
+  ) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+}
+
+/* 危险操作按钮 */
+.el-button--danger {
+  background-color: var(--chinese-dark) !important;
+  color: white !important;
+  box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+}
+
+.el-button--danger:hover {
+  background-color: var(--chinese-primary) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 0, 0, 0.4);
+}
+
+/* 次要操作按钮 */
+.el-button--default {
+  background-color: var(--anime-soft) !important;
+  color: var(--chinese-dark) !important;
+  border: 2px solid var(--anime-primary) !important;
+  box-shadow: 0 4px 15px rgba(230, 230, 250, 0.3);
+}
+
+.el-button--default:hover {
+  background-color: var(--anime-pastel) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(230, 230, 250, 0.4);
+}
+
+/* 小型按钮样式调整 */
+.el-button--small {
+  padding: 8px 16px !important;
+  font-size: 1rem !important;
+}
+
+/* 表格中的操作按钮 */
+.el-table .el-button {
+  padding: 8px 16px !important;
+  font-size: 1rem !important;
+  font-weight: 300 !important;
+}
+
+/* 禁用状态统一样式 */
+.el-button.is-disabled {
+  background-color: #909399 !important;
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+
+.el-button.is-disabled:hover {
+  transform: none;
+  box-shadow: none !important;
+}
+
+/* 表格融合风格 */
+.el-table {
+  border: 2px solid transparent !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-image: var(--border-gradient) 1 !important;
+  box-shadow: 0 0 20px var(--anime-glow);
+  backdrop-filter: blur(5px);
+}
+
+/* 表头基础样式 */
+.el-table th {
+  padding: 16px 8px !important;
+  border-bottom: none !important;
+  transition: all 0.3s ease;
+  font-family: "华文行楷", "微软雅黑", sans-serif;
+  font-size: 1.2rem !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* 健康数据表头 - 中国风主导 */
+.health-data-section .el-table th {
+  background: linear-gradient(
+    135deg,
+    var(--chinese-dark) 0%,
+    var(--chinese-primary) 100%
+  ) !important;
+  color: #fff !important;
+  border-bottom: 2px solid var(--chinese-accent) !important;
+  text-shadow: 0 2px 4px rgba(139, 0, 0, 0.3);
+}
+
+/* 运动记录表头 - 二次元风格主导 */
+.exercise-section .el-table th {
+  background: linear-gradient(
+    45deg,
+    var(--anime-primary) 0%,
+    var(--anime-secondary) 100%
+  ) !important;
+  color: #fff !important;
+  border-bottom: 2px solid var(--anime-accent) !important;
+  text-shadow: 0 2px 4px rgba(255, 105, 180, 0.3);
+}
+
+/* 饮食记录表头 - 街头文化点缀 */
+.diet-section .el-table th {
+  background: linear-gradient(
+    -45deg,
+    var(--street-primary) 0%,
+    var(--street-secondary) 100%
+  ) !important;
+  color: #fff !important;
+  border-bottom: 2px solid var(--street-neon) !important;
+  text-shadow: 0 2px 4px rgba(75, 0, 130, 0.3);
+}
+
+/* 表头悬停效果 */
+.health-data-section .el-table th:hover {
+  background: linear-gradient(
+    135deg,
+    var(--chinese-primary) 0%,
+    var(--chinese-accent) 100%
+  ) !important;
+}
+
+.exercise-section .el-table th:hover {
+  background: linear-gradient(
+    45deg,
+    var(--anime-secondary) 0%,
+    var(--anime-primary) 100%
+  ) !important;
+}
+
+.diet-section .el-table th:hover {
+  background: linear-gradient(
+    -45deg,
+    var(--street-secondary) 0%,
+    var(--street-neon) 100%
+  ) !important;
+}
+
+.el-table tr:hover > td {
+  background: linear-gradient(
+    45deg,
+    rgba(212, 33, 59, 0.1) 0%,
+    rgba(255, 105, 180, 0.1) 100%
+  ) !important;
+  transition: all 0.3s ease;
+}
+
+/* 滚动条融合风格 */
+::-webkit-scrollbar {
+  width: 14px;
+  background: rgba(255, 182, 193, 0.1);  /* 淡粉色背景 */
+  border-radius: 7px;
+  backdrop-filter: blur(5px);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    45deg,
+    var(--anime-pastel) 0%,
+    var(--anime-primary) 50%,
+    var(--anime-secondary) 100%
+  );
+  border-radius: 7px;
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  background-size: 200% 200%;
+  animation: gradientMove 3s ease infinite;
+  box-shadow: 
+    inset 0 0 6px var(--anime-glow),
+    0 0 8px var(--anime-glow);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    45deg,
+    var(--anime-secondary) 0%,
+    var(--anime-primary) 50%,
+    var(--anime-pastel) 100%
+  );
+  border: 3px solid rgba(255, 255, 255, 0.9);
+}
+
+::-webkit-scrollbar-track {
+  background: 
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 182, 193, 0.1) 50%,
+      transparent 100%
+    );
+  border-radius: 7px;
+  margin: 4px 0;
+}
+
+/* 标题融合风格 */
+.dashboard-title {
+  font-family: "华文行楷", "微软雅黑", cursive;
+  font-size: 2em;
+  background: var(--title-gradient);
+  background-size: 200% 200%;
+  animation: gradientMove 3s ease infinite;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  position: relative;
+  display: inline-block;
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    0 0 20px var(--anime-glow);
+}
+
+.dashboard-title::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--mixed-gradient);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.dashboard-title:hover::after {
+  transform: scaleX(1);
+}
+
+/* 动画效果 */
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* 确保文本可读性 */
+.el-card, .el-table td {
+  color: #333333;
+  font-weight: normal;
+}
+
+/* 添加装饰性光效 */
+.decoration-light {
+  position: fixed;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: 
+    radial-gradient(circle at 10% 10%, var(--chinese-bg) 0%, transparent 50%),
+    radial-gradient(circle at 90% 90%, var(--anime-bg) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, var(--street-bg) 0%, transparent 30%);
+  mix-blend-mode: screen;
+  z-index: 0;
+}
+
+/* 添加融合风格的边框效果 */
+.fusion-border {
+  position: relative;
+}
+
+.fusion-border::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: var(--chinese-dominant-gradient);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.fusion-border:hover::before {
+  opacity: 1;
+}
+
+/* 添加毛玻璃效果 */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* 优化阴影效果 */
+.enhanced-shadow {
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.1),
+    0 0 30px rgba(255, 105, 180, 0.2),
+    0 0 60px rgba(255, 69, 0, 0.1) !important;
+}
+
+/* 添加装饰性图案 */
+.pattern-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  background-image: 
+    url('/images/chinese-pattern.png'),
+    linear-gradient(
+      45deg, 
+      rgba(212, 33, 59, 0.05) 0%,
+      rgba(255, 105, 180, 0.05) 100%
+    );
+  background-attachment: scroll;
+  background-size: contain;
+  background-repeat: repeat;
+  background-blend-mode: overlay;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+/* 左下角装饰元素 */
+.corner-decoration {
+  content: '';
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 180px;
+  height: 180px;
+  background: url('/images/anime-decoration-2.png') no-repeat;
+  background-size: contain;
+  pointer-events: none;
+  z-index: 2;
+  transform-origin: bottom center;
+  filter: drop-shadow(0 0 15px var(--anime-glow));
+  opacity: 0.85;
+  animation: floatAnimation 3s ease-in-out infinite;
+}
+
+/* 添加中国风装饰元素 */
+.corner-decoration::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  background: url('/images/chinese-decoration.png') no-repeat;
+  background-size: contain;
+  transform: translate(-50%, -50%);
+  opacity: 0.6;
+  mix-blend-mode: screen;
+  animation: rotateAnimation 15s linear infinite;
+}
+
+/* 添加光效装饰 */
+.corner-decoration::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at center,
+    var(--anime-glow) 0%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+  opacity: 0.5;
+  animation: pulseAnimation 4s ease-in-out infinite;
+}
+
+/* 漂浮动画 */
+@keyframes floatAnimation {
+  0%, 100% {
+    transform: translateY(0) rotate(-5deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(5deg);
+  }
+}
+
+/* 旋转动画 */
+@keyframes rotateAnimation {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* 脉冲动画 */
+@keyframes pulseAnimation {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+}
+
+/* 健康目标计划模块样式 */
+.health-goal-section .el-button {
+  background: linear-gradient(
+    135deg,
+    var(--chinese-primary) 0%,
+    var(--anime-primary) 100%
+  ) !important;
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 4px rgba(139, 0, 0, 0.2);
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(212, 33, 59, 0.2);
+}
+
+.health-goal-section .el-button:hover {
+  background: linear-gradient(
+    135deg,
+    var(--anime-primary) 0%,
+    var(--chinese-primary) 100%
+  ) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 105, 180, 0.3);
+}
+
+/* 健康目标表头样式 */
+.health-goal-section .el-table th {
+  background: linear-gradient(
+    120deg,
+    rgba(255, 182, 193, 0.9) 0%,    /* 浅粉色 - 二次元风格 */
+    rgba(152, 251, 152, 0.85) 50%,  /* 淡绿色 - 中国风 */
+    rgba(176, 224, 230, 0.9) 100%   /* 粉蓝色 - 街头文化 */
+  ) !important;
+  color: #4A5568 !important;        /* 深青灰色 - 提升对比度 */
+  font-weight: 400;                 /* 加粗以提高可读性 */
+  text-shadow: 
+    1px 1px 0 rgba(255, 255, 255, 0.6),   /* 白色描边 */
+    -1px -1px 2px rgba(0, 0, 0, 0.1);     /* 轻微阴影 */
+  letter-spacing: 0.5px;            /* 增加字间距 */
+  border-bottom: 2px solid rgba(74, 85, 104, 0.2) !important;  /* 更深的边框颜色 */
+  transition: all 0.3s ease;
+}
+
+.health-goal-section .el-table th:hover {
+  background: linear-gradient(
+    120deg,
+    rgba(176, 224, 230, 0.9) 0%,    /* 粉蓝色 */
+    rgba(255, 182, 193, 0.85) 50%,   /* 浅粉色 */
+    rgba(152, 251, 152, 0.9) 100%    /* 淡绿色 */
+  ) !important;
+  color: #2D3748 !important;        /* 悬停时文字颜色加深 */
+}
+
+/* 健康目标表格内容字体颜色 */
+.health-goal-section .el-table td {
+  color: #4A5568;                   /* 与表头颜色保持一致 */
+  font-weight: 500;                 /* 适当加粗内容文字 */
+}
+
+/* 自定义钢笔光标样式 */
+#app {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="%2300FFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" filter="drop-shadow(2px 2px 2px %2300FFFF)"><defs><filter id="glow"><feGaussianBlur stdDeviation="0.5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" style="filter:url(%23glow)"/><path d="M15 5l4 4" style="filter:url(%23glow)"/></svg>') 0 24, auto !important;
+}
+
+.el-main {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="%2300FFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" filter="drop-shadow(2px 2px 2px %2300FFFF)"><defs><filter id="glow"><feGaussianBlur stdDeviation="0.5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" style="filter:url(%23glow)"/><path d="M15 5l4 4" style="filter:url(%23glow)"/></svg>') 0 24, auto !important;
+}
+
+/* 链接和按钮的悬停光标 */
+a:hover,
+button:hover,
+.el-button:hover {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="%23FFB7C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/><path d="M15 5l4 4"/><path d="M12 19l1 1"/></svg>') 0 24, pointer !important;
+}
+
+/* 文本输入区域的光标 */
+input,
+textarea,
+.el-input__inner {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="%2387CEEB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/><path d="M15 5l4 4"/><path d="M12 19h2"/></svg>') 0 24, text !important;
+} 

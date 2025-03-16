@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.11</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>sues</groupId>
+    <artifactId>Diploma_Graduation_Projects</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>Diploma_Graduation_Projects</name>
+    <description>Diploma_Graduation_Projects</description>
+    <url/>
+    <licenses>
+        <license/>
+    </licenses>
+    <developers>
+        <developer/>
+    </developers>
+    <scm>
+        <connection/>
+        <developerConnection/>
+        <tag/>
+        <url/>
+    </scm>
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+    <dependencies>
+        <!--   阿里的JSON处理工具     -->
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+            <version>2.0.53</version>
+        </dependency>
+        
+        <!--    Hutool工具类库    -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.34</version>
+        </dependency>
+        
+        <!--    API文档生成    -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+            <version>4.4.0</version>
+        </dependency>
+        
+        <!--
+        Lombok 是一个 Java 库，旨在简化 Java 应用程序的代码编写。它通过在编译时自动生成常见的样板代码（boilerplate code）来减少开发人员的重复劳动。
+        Lombok 通过注解的方式，让代码更加简洁和易读，尤其是在编写实体类时，这些重复代码包括 getter、setter、equals、hashCode、toString 方法，以及构造函数等。
+        -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        
+        <!--   用于监控和管理应用程序。Actuator提供了一组开箱即用的功能，以帮助开发者了解应用的运行状态。     -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        
+        <!--
+        用于在 Spring Boot 应用中实现数据校验功能的起步依赖项。
+        它提供了一套常用的注解，用于验证输入数据，以确保数据完整性和有效性，特别是在Web应用中处理用户输入时。
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        
+        <!--
+        Spring Boot 提供的一个开发工具模块，旨在提高开发效率和体验。它包含一组功能强大的开发时特性，帮助开发人员在构建 Spring Boot 应用时更快速地进行迭代开发和测试。
+        核心功能
+        自动重启：在项目的类路径下出现变化时，会自动重启应用。这在进行代码修改特别频繁时非常有帮助，因为它避免了手动重启服务器的需要。
+
+        实时热加载：自动重启类加载器，在一些 IDE（如 IntelliJ IDEA 和 Eclipse）中，支持热加载类的变化而不需要重启整个应用。
+
+        静态资源热替换：修改 HTML、CSS 或者 JavaScript 等静态资源时，也不需要重启应用即可查看效果。
+
+        全局属性设置：可以定义全局的应用程序属性，比如属性占位符等。
+
+        自动连接 H2 控制台：在嵌入式的 H2 数据库中，自动启用 H2 控制台。
+
+        禁用缓存：开发期间，HTML 模板引擎（如 Thymeleaf）默认不缓存模板。
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        
+        <!--
+        Spring Boot 提供的一个 APT（Annotation Processing Tool）处理器，其主要目的是为了支持在 IDE 中对 Spring Boot 配置属性的自动完成功能，
+        以及生成属性元数据文件，用于配置项的文档化和验证。
+
+        核心功能
+        自动生成元数据文件：扫描应用程序中的配置属性注解，生成 META-INF/spring-configuration-metadata.json 文件。这文件包含了配置属性的元数据信息。
+
+        提供自动补全支持：在支持的 IDE（如 IntelliJ IDEA 和 Eclipse）中，开发者在编写 application.properties 或 application.yml 文件时，可以获得配置属性的自动补全提示。
+
+        增强属性的验证能力：帮助开发者在使用自定义配置属性时，通过生成的元数据进行类型检查和验证。
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        
+        <!--
+        MySQL 提供的官方 JDBC（Java Database Connectivity）驱动程序，用于在 Java 应用程序中连接 MySQL 数据库。
+        这个 JDBC 驱动程序让 Java 程序可以通过标准的 JDBC API 来执行 MySQL 数据库的操作，如查询、更新、删除等。
+        -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        
+        <!--   用于简化数据库操作     -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+            <version>3.5.9</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        
+        <!--
+        最常用的用于构建基于Spring MVC的Web应用程序的起步依赖。
+         它提供对传统的同步Web应用的支持，包括RESTful服务的实现。
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        
+        <!--
+        用于简化 Spring Web Services（Spring WS）应用的开发。Spring Web Services 是一个专注于创建 SOAP Web 服务的框架，
+        它提供了一组强大的工具，用于构建与消费基于 XML 的 Web 服务，并支持多种标准和协议，如 WS-Security、WS-Addressing 等。
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
+        </dependency>
+        
+        <!--
+        用于构建基于 Spring WebFlux 的反应式 Web 应用程序。WebFlux 是 Spring Framework 5 引入的一种新的反应式编程模型，
+        专注于非阻塞、异步处理，可以高效地利用多核处理器资源，尤其适合于需要处理大量并发请求的场景，例如实时数据流、消息传递系统、物联网设备通信等。
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+        
+        <!--
+        spring-boot-starter-test 是一个 Spring Boot 提供的测试初学者依赖包，用于简化测试的编写和执行。
+        它整合了常用的测试框架和工具，使得编写和运行测试变得更加高效和便捷。下面我将通过一个场景案例为你讲解它的功能和使用。
+
+        核心功能
+        JUnit：用于编写和运行测试的核心框架。
+        Spring Test：提供对 Spring 应用程序上下文的集成测试支持。
+        AssertJ：用于创建流畅的断言，使断言语句更具可读性。
+        Hamcrest：匹配器库，用于构建灵活的测试条件。
+        Mockito：模拟框架，用于创建模拟对象，方便进行单元测试。
+        JSONPath：用于解析和验证 JSON 数据的库。
+        XMLUnit：用于比较 XML 数据的工具。
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+        <!--
+        Spring Reactor 项目中的测试工具包，它主要用于测试基于 Reactor 的响应式编程代码，特别是那些使用 Reactor 的 Flux 和 Mono 进行异步和非阻塞操作的部分。
+        这个工具包提供了一组专门的工具和方法，使开发者能够断言和验证响应式流的行为，确保它们按预期工作。
+
+        核心功能
+        StepVerifier: reactor-test 提供的最主要功能是 StepVerifier，它允许开发者描述一个响应式流的期望行为，并一步一步地对每个阶段进行验证。
+        这种方式不仅使测试更为直观，而且能够捕捉流在不同时间点上的状态变化。
+        -->
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+        <!--
+        用于生成 API 文档。它基于 Spring MVC 的测试框架 MockMvc，通过集成到测试用例中，可以从测试过程中自动生成文档片段，这些片段可以再组合成完整的 API 文档。
+        这种方式确保文档与实际 API 行为一致，有助于维护高质量的、精确的 API 文档。
+        -->
+        <dependency>
+            <groupId>org.springframework.restdocs</groupId>
+            <artifactId>spring-restdocs-mockmvc</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+        
+        <!--    Spring Security    -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        
+        <!--    Spring Mail    -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>generate-docs</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <backend>html</backend>
+                            <doctype>book</doctype>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.springframework.restdocs</groupId>
+                        <artifactId>spring-restdocs-asciidoctor</artifactId>
+                        <version>${spring-restdocs.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,47 @@
+/* 按钮间距全局样式 */
+.el-button {
+  margin: 8px 0 !important;
+}
+
+.el-card__header .el-button {
+  margin: 6px 0 !important;
+}
+
+/* 表格中的操作按钮间距 */
+.el-table .cell .el-button {
+  margin: 4px 0 !important;
+}
+
+/* 操作列按钮组样式 */
+.operation-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+/* 头部操作按钮组样式 */
+.header-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+/* 移除左边距 */
+.el-button + .el-button {
+  margin-left: 0 !important;
+}
+
+.el-card__header .el-button + .el-button {
+  margin-left: 0 !important;
+}
+
+.el-table .cell .el-button + .el-button {
+  margin-left: 0 !important;
+}
+
+.delete-btn + .el-button,
+.el-button + .delete-btn {
+  margin-left: 0 !important;
+} 

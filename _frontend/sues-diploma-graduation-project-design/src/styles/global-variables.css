@@ -1,0 +1,13 @@
+/* Global Colors Variables */
+:root {
+  --primary-color: #1E90FF;         /* DodgerBlue */
+  --secondary-color: #32CD32;       /* LimeGreen */
+  --accent-color: #FFA500;          /* Orange */
+  --background-color: #ffffff;      /* 页面背景色 */
+  --card-gradient: linear-gradient(135deg, #ffffff, #f0f8ff);  /* 卡片背景渐变 */
+  --text-color: #333333;            /* 主文字颜色 */
+  --subtext-color: #666666;         /* 次级文字颜色 */
+  --border-color: #a6c8ff;          /* 表格头部和边框颜色：淡蓝色 */
+  --hover-color: #e6f7ff;           /* 悬浮背景颜色 */
+  --selected-color: #cceeff;        /* 选中行背景色 */
+} 

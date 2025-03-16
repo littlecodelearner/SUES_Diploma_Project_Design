@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sues.xmz.diploma.mapper.ExerciseRecordsTypesMapper">
+    <resultMap id="BaseResultMap" type="sues.xmz.diploma.domain.po.ExerciseRecordsTypes">
+        <!--@mbg.generated-->
+        <!--@Table diploma_project_daily_exercise_health_management_system.exercise_records_types-->
+        <id column="exercise_record_id" jdbcType="INTEGER" property="exerciseRecordId"/>
+        <id column="exercise_type_id" jdbcType="INTEGER" property="exerciseTypeId"/>
+    </resultMap>
+    
+    <update id="updateExerciseRecordsInBatch"
+            parameterType="java.util.List"
+    >
+        update diploma_project_daily_exercise_health_management_system.exercise_records_types ert
+        set ert.exercise_type_id = case ert.exercise_record_id
+        <foreach collection="list" item="item" separator="">
+            when #{item.exerciseRecordId} then #{item.exerciseTypeId}
+        </foreach>
+        end
+        where ert.exercise_record_id in
+        <foreach collection="list" item="item" open="(" separator=", " close=")">
+            #{item.exerciseRecordId}
+        </foreach>
+    </update>
+    
+</mapper>

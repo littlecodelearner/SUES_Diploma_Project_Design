@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sues.xmz.diploma.mapper.HealthDataMapper">
+  
+  <resultMap id="HealthDataDTOResultMap" type="sues.xmz.diploma.domain.dto.health_data.HealthDataDTO">
+    <id column="health_data_id" jdbcType="INTEGER" property="healthDataId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="height" jdbcType="DECIMAL" property="height" />
+    <result column="weight" jdbcType="DECIMAL" property="weight" />
+    <result column="bmi" jdbcType="DECIMAL" property="bmi" />
+    <result column="heart_rate" jdbcType="DECIMAL" property="heartRate" />
+    <result column="measurement_date" jdbcType="DATE" property="measurementDate" />
+  </resultMap>
+  
+  <select id="listPaginatedHealthDataByTimeRange"
+          resultMap="HealthDataDTOResultMap"
+  >
+      SELECT
+      hd.health_data_id as health_data_id,
+      hd.user_id as user_id,
+      u.height as height,
+      hd.weight as weight,
+      hd.bmi as bmi,
+      hd.heart_rate as heart_rate,
+      hd.measurement_date as measurement_date
+      FROM diploma_project_daily_exercise_health_management_system.users u
+      LEFT OUTER JOIN diploma_project_daily_exercise_health_management_system.health_data hd
+      ON hd.user_id = u.user_id
+      WHERE hd.user_id = #{query.userId}
+      <choose>
+          <when test="query.startDateTime != null and query.endDateTime == null">
+              and hd.measurement_date &gt;= #{query.startDateTime}
+          </when>
+          <when test="query.startDateTime == null and query.endDateTime != null">
+              and hd.measurement_date &lt;= #{query.endDateTime}
+          </when>
+          <when test="query.startDateTime != null and query.endDateTime != null">
+              and hd.measurement_date between #{query.startDateTime} and #{query.endDateTime}
+          </when>
+      </choose>
+      ORDER BY hd.measurement_date DESC
+      LIMIT #{offset}, #{query.size}
+  </select>
+    
+    <select id="listAllHealthDataByTimeRange"
+            resultMap="HealthDataDTOResultMap"
+    >
+        SELECT
+        hd.health_data_id as health_data_id,
+        hd.user_id as user_id,
+        u.height as height,
+        hd.weight as weight,
+        hd.bmi as bmi,
+        hd.heart_rate as heart_rate,
+        hd.measurement_date as measurement_date
+        FROM diploma_project_daily_exercise_health_management_system.users u
+        INNER JOIN diploma_project_daily_exercise_health_management_system.health_data hd
+        ON hd.user_id = u.user_id
+        WHERE hd.user_id = #{query.userId}
+        <choose>
+            <when test="query.startDateTime != null and query.endDateTime == null">
+                and hd.measurement_date &gt;= #{query.startDateTime}
+            </when>
+            <when test="query.startDateTime == null and query.endDateTime != null">
+                and hd.measurement_date &lt;= #{query.endDateTime}
+            </when>
+            <when test="query.startDateTime != null and query.endDateTime != null">
+                and hd.measurement_date between #{query.startDateTime} and #{query.endDateTime}
+            </when>
+        </choose>
+        ORDER BY hd.measurement_date DESC
+    </select>
+</mapper>
